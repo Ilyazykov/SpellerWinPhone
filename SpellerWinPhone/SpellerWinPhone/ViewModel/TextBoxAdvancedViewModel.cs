@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System.Windows;
+using SpellerWinPhone.Spellcheckers;
 
 namespace SpellerWinPhone.ViewModel
 {
@@ -12,13 +13,14 @@ namespace SpellerWinPhone.ViewModel
     /// </summary>
     public class TextBoxAdvancedViewModel : ViewModelBase
     {
+        private string _tempText;
         public string TempText
         {
-            get
-            {
-                return "temprorary text"; //TODO - другое что-то надо возвращать
-            }
+            get { return _tempText; }
+            set { _tempText = value; }
         }
+
+        private ISpellchecker spellchecker;
 
         public RelayCommand<string> CheckCommand
         {
@@ -31,12 +33,17 @@ namespace SpellerWinPhone.ViewModel
         /// </summary>
         public TextBoxAdvancedViewModel()
         {
+            TempText = "temprorary text";
+            spellchecker = new SpellcheckerYandex();
+
             CheckCommand = new RelayCommand<string>((msg) => Spellchecking(msg));
         }
 
         private object Spellchecking(string msg)
         {
-            MessageBox.Show("Введённая строка ->" + msg);
+            TempText = msg;
+            string words = spellchecker.findMistakes(msg);
+            //TODO вызов события с ошибками
             return null;
         }
 
