@@ -20,7 +20,7 @@ namespace SpellerWinPhone.ViewModel
             set { _tempText = value; }
         }
 
-        private SpellcheckerYandex spellchecker; //TODO изменить на абстрактный
+        
 
         public RelayCommand<string> CheckCommand
         {
@@ -34,18 +34,12 @@ namespace SpellerWinPhone.ViewModel
         public TextBoxAdvancedViewModel()
         {
             TempText = "temprorary text for yau";
-            spellchecker = new SpellcheckerYandex();
-
-            spellchecker.RaiseCustomEvent += (o, e) => {
-                MessageBox.Show(e.misspelledWords);
-            };
-            CheckCommand = new RelayCommand<string>((msg) => Spellchecking(msg));
         }
 
         private object Spellchecking(string msg)
         {
             TempText = msg;
-            spellchecker.findMistakes(msg);
+            
             //TODO вызов события с ошибками
             return null;
         }

@@ -18,17 +18,8 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="tbAdvanced" Text="{Binding TempText}"/>
-            <Button x:Name="btnCheck" Content="Check" Grid.Column="1">
-                <Custom:Interaction.Triggers>
-                    <Custom:EventTrigger EventName="Click">
-                        <GalaSoft_MvvmLight_Command:EventToCommand
-                            x:Name="ClickCommand"
-                            Command="{Binding CheckCommand, Mode=OneWay}"
-                            CommandParameter="{Binding Text, ElementName=tbAdvanced}"/>
-                    </Custom:EventTrigger>
-                </Custom:Interaction.Triggers>
-            </Button>
+            <TextBox x:Name="tbAdvanced" Text="{Binding TempText}" BorderBrush="#FFFF0000"/>
+            <Button x:Name="btnCheck" Content="Check" Grid.Column="1" Click="btnCheck_Click"/>
         </Grid>
     </StackPanel>
 </UserControl>

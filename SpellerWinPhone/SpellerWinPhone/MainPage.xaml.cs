@@ -19,8 +19,10 @@ namespace SpellerWinPhone
         public MainPage()
         {
             InitializeComponent();
-
-            
+            Text.Spellchecked += (s, e) =>
+            {
+                Result.Text = e.misspelledWords;
+            };
         }
     }
 }
