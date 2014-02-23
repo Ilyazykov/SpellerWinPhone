@@ -39,7 +39,6 @@ namespace SpellerWinPhone.ViewModel
         
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
         }
     }
 }

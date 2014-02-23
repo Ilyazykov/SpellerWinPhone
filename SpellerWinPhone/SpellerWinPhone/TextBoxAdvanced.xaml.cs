@@ -16,7 +16,7 @@ namespace SpellerWinPhone
     {
         public event EventHandler<CustomEventsArgs> Spellchecked;
 
-        private ISpellchecker spellchecker; //TODO изменить на абстрактный
+        private ISpellchecker spellchecker;
 
         public TextBoxAdvanced()
         {
@@ -25,7 +25,7 @@ namespace SpellerWinPhone
             spellchecker = new SpellcheckerYandex();
 
             spellchecker.RaiseCustomEvent += (o, e) => {
-                if (e.misspelledWords == "")
+                if (e.misspelledWords.Count == 0)
                 {
                     tbAdvanced.BorderBrush = new SolidColorBrush(Colors.Green);
                 }

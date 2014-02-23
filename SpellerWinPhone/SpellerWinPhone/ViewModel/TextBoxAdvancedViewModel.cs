@@ -40,7 +40,6 @@ namespace SpellerWinPhone.ViewModel
         {
             TempText = msg;
             
-            //TODO вызов события с ошибками
             return null;
         }
 

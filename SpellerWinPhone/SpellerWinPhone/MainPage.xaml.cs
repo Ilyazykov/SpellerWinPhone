@@ -21,7 +21,12 @@ namespace SpellerWinPhone
             InitializeComponent();
             Text.Spellchecked += (s, e) =>
             {
-                Result.Text = e.misspelledWords;
+                string res = "";
+                foreach (var word in e.misspelledWords)
+                {
+                    res += word + " ";
+                }
+                Result.Text = res;
             };
         }
     }

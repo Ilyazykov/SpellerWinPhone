@@ -27,23 +27,30 @@ namespace SpellerWinPhone.Spellcheckers
         {
             if (e.Error != null)
             {
-                MessageBox.Show("e.Error != null");
+                MessageBox.Show("Something wrong");
             }
             else if (!e.Cancelled)
             {
                 string xmlString = (string)e.Result;
                 string res = "";
+                string replacement = "";
 
                 using (XmlReader reader = XmlReader.Create(new StringReader(xmlString)))
                 {
                     while (reader.ReadToFollowing("word"))
                     {
                         res += reader.ReadElementContentAsString() + " ";
-                        //TODO replacementOptions
+
+                        while (reader.Name == "s")
+                        {
+                            replacement += reader.ReadElementContentAsString();
+                            if (reader.Name == "s") replacement += "+";
+                            else replacement += " ";
+                        }
                     }
                 }
 
-                CustomEventsArgs e1 = new CustomEventsArgs(res);
+                CustomEventsArgs e1 = new CustomEventsArgs(res, replacement);
 
                 EventHandler<CustomEventsArgs> handler = RaiseCustomEvent;
 
