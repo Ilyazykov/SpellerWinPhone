@@ -9,19 +9,9 @@ using System.IO;
 
 namespace SpellerWinPhone.Spellcheckers
 {
-    public class CustomEventsArgs : EventArgs
-    {
-        public string misspelledWords;
-
-        public CustomEventsArgs(string str)
-        {
-            misspelledWords = str;
-        }
-    }
-
     class SpellcheckerYandex : ISpellchecker
     {
-        public event EventHandler<CustomEventsArgs> RaiseCustomEvent;
+        public override event EventHandler<CustomEventsArgs> RaiseCustomEvent;
 
         override public void findMistakes(string msg)
         {

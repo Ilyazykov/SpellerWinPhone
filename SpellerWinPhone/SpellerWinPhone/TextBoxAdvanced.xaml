@@ -21,5 +21,10 @@
             <TextBox x:Name="tbAdvanced" Text="{Binding TempText}" BorderBrush="#FFFF0000"/>
             <Button x:Name="btnCheck" Content="Check" Grid.Column="1" Click="btnCheck_Click"/>
         </Grid>
+        <TextBlock Text="Choose API:" Margin="0,10,0,0"/>
+        <StackPanel x:Name="typeOfAPI">
+            <RadioButton x:Name="Yandex" IsChecked="True" Content="Yandex" Checked="Yandex_Checked"/>
+            <RadioButton x:Name="Mashape" IsChecked="False" Content="Mashape" Checked="Mashape_Checked"/>
+        </StackPanel>
     </StackPanel>
 </UserControl>

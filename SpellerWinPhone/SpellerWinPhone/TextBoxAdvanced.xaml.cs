@@ -16,12 +16,11 @@ namespace SpellerWinPhone
     {
         public event EventHandler<CustomEventsArgs> Spellchecked;
 
-        private SpellcheckerYandex spellchecker; //TODO изменить на абстрактный
+        private ISpellchecker spellchecker; //TODO изменить на абстрактный
 
         public TextBoxAdvanced()
         {
             InitializeComponent();
-
 
             spellchecker = new SpellcheckerYandex();
 
@@ -46,6 +45,16 @@ namespace SpellerWinPhone
         private void btnCheck_Click(object sender, RoutedEventArgs e)
         {
             spellchecker.findMistakes(tbAdvanced.Text);
+        }
+
+        private void Mashape_Checked(object sender, RoutedEventArgs e)
+        {
+            spellchecker = new SpellcheckerMashape();
+        }
+
+        private void Yandex_Checked(object sender, RoutedEventArgs e)
+        {
+            spellchecker = new SpellcheckerYandex();
         }
     }
 }
