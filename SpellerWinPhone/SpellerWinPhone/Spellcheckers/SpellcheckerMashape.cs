@@ -7,7 +7,7 @@ namespace SpellerWinPhone.Spellcheckers
 {
     class SpellcheckerMashape : ISpellchecker
     {
-        override public string findMistakes(string msg)
+        override public void findMistakes(string msg)
         {
             throw new NotImplementedException();
         }

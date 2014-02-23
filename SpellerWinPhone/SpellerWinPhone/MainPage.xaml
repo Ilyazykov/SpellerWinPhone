@@ -39,7 +39,7 @@
             </StackPanel>
             
             <TextBlock Text="Result" Margin="0,10,0,0"/>
-            <TextBox x:Name="result" IsReadOnly="True"/>
+            <TextBox x:Name="Result" IsReadOnly="True"/>
         </StackPanel>
     </Grid>
 

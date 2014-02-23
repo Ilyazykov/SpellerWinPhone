@@ -9,26 +9,31 @@ using System.IO;
 
 namespace SpellerWinPhone.Spellcheckers
 {
+    public class CustomEventsArgs : EventArgs
+    {
+        public string misspelledWords;
+
+        public CustomEventsArgs(string str)
+        {
+            misspelledWords = str;
+        }
+    }
+
     class SpellcheckerYandex : ISpellchecker
     {
-        override public string findMistakes(string msg)
+        public event EventHandler<CustomEventsArgs> RaiseCustomEvent;
+
+        override public void findMistakes(string msg)
         {
-            var urlStrin = String.Format("http://speller.yandex.net/services/spellservice/checkText?text={0}", msg);
+            var url = String.Format("http://speller.yandex.net/services/spellservice/checkText?text={0}", msg);
 
-            LoadSiteContent(urlStrin);
-
-            return "";
-        }
-
-        public void LoadSiteContent(string url)
-        {
             WebClient client = new WebClient();
 
-            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(DownloadStringCallback2);
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(DownloadStringCallback);
             client.DownloadStringAsync(new Uri(url));
         }
 
-        private void DownloadStringCallback2(Object sender, DownloadStringCompletedEventArgs e)
+        private void DownloadStringCallback(Object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -41,14 +46,21 @@ namespace SpellerWinPhone.Spellcheckers
 
                 using (XmlReader reader = XmlReader.Create(new StringReader(xmlString)))
                 {
-
                     while (reader.ReadToFollowing("word"))
                     {
                         res += reader.ReadElementContentAsString() + " ";
+                        //TODO replacementOptions
                     }
                 }
 
-                MessageBox.Show(res);
+                CustomEventsArgs e1 = new CustomEventsArgs(res);
+
+                EventHandler<CustomEventsArgs> handler = RaiseCustomEvent;
+
+                if (handler != null)
+                {
+                    handler(this, e1);
+                }
             }
         }
     }

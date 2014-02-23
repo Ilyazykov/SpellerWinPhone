@@ -19,6 +19,8 @@ namespace SpellerWinPhone
         public MainPage()
         {
             InitializeComponent();
+
+            
         }
     }
 }
