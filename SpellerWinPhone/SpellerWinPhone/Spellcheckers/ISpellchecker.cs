@@ -5,8 +5,11 @@ using System.Text;
 
 namespace SpellerWinPhone.Spellcheckers
 {
-    interface ISpellchecker
+    abstract class ISpellchecker
     {
-        string findMistakes(string msg);
+        public LinkedList<string> misspelledWords;
+        public LinkedList<string> replacementOptions;
+
+        abstract public string findMistakes(string msg);
     }
 }

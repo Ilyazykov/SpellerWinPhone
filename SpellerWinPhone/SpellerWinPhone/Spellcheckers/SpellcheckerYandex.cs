@@ -4,14 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows;
+using System.Xml;
+using System.IO;
 
 namespace SpellerWinPhone.Spellcheckers
 {
     class SpellcheckerYandex : ISpellchecker
     {
-        public string findMistakes(string msg)
+        override public string findMistakes(string msg)
         {
-            var urlStrin = String.Format("http://speller.yandex.net/services/spellservice.json/checkText?text={0}", msg);
+            var urlStrin = String.Format("http://speller.yandex.net/services/spellservice/checkText?text={0}", msg);
 
             LoadSiteContent(urlStrin);
 
@@ -32,13 +34,21 @@ namespace SpellerWinPhone.Spellcheckers
             {
                 MessageBox.Show("e.Error != null");
             }
-            // If the request was not canceled and did not throw
-            // an exception, display the resource.
             else if (!e.Cancelled)
             {
-                MessageBox.Show((string)e.Result);
-                //If you get the cross-thread exception then use the following line instead of the above
-                //Dispatcher.BeginInvoke(new Action (() => textBlock1.Text = (string)e.Result));
+                string xmlString = (string)e.Result;
+                string res = "";
+
+                using (XmlReader reader = XmlReader.Create(new StringReader(xmlString)))
+                {
+
+                    while (reader.ReadToFollowing("word"))
+                    {
+                        res += reader.ReadElementContentAsString() + " ";
+                    }
+                }
+
+                MessageBox.Show(res);
             }
         }
     }
